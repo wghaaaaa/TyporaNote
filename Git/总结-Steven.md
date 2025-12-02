@@ -347,17 +347,64 @@ Git 的逻辑： 只有被 commit 过的文件，才会被 Git 真正写入数�
 
 # 五、Git分支的常见命令✨
 
-> 常见命令
+> #### 常见命令
 
 ~~~html
-查看分支：git branch
+查看分支：git branch   拓展：git branch -a表示查看所有的分支包括本地分支跟远程分支。git branch -r查看远程分支
 创建分支：git branch xxx
+分支重命名：git branch -m <旧名> <新名>
 切换分支：git checkout xxx
 创建并切换：git checkout -b xxx
 合并分支：git merge xxx
 删除分支：git branch -d xxx
 强制删除：git branch -D xxx
 推送分支：git push origin xxx
-拉取分支：git checkout -b 本地 origin/远程
+拉取分支：git checkout -b <本地分支名> origin/<远程分支名>
+git remote update 是一个非常重要的 Git 命令，用于更新本地对远程仓库的引用    
+~~~
+
+> #### 2.创建分支：git branch xxx
+
+~~~css
+创建本地分支：git branch xxx
+创建远程分支（本质是将本地分支推送到远程仓库就变成了远程分支）：
+	git checkout feature-new  # 切换到本地分支
+	git push -u origin feature-new  # -u 设置上游分支-即设置后这个本地分支推送会默认推送到该远程分支，这样的话以后使用git push 即可！
+~~~
+
+> #### 3.分支重命名：git branch -m <旧名> <新名>
+
+~~~
+本地分支重命名：git branch -m <旧名> <新名>
+远程仓库分支重命名（实际上是删除旧分支，推送新分支）：
+	git push origin :feature-old  # 删除远程旧分支     
+	git push origin feature-new   # 推送新分支，，这里可以加 -u   git push -u origin feature-new
+~~~
+
+> #### 8.强制删除：git branch -D xxx
+
+~~~css
+本地分支强制删除：git branch -D xxx
+远程分支删除：
+	# 方法1：使用 delete 参数（推荐）
+	git push origin --delete feature-old
+	# 方法2：使用冒号语法
+	git push origin :feature-old
+~~~
+
+> #### 9.拉取分支：git checkout -b <本地分支名> origin/<远程分支名>
+
+~~~css
+# 1. 先查看远程有哪些分支
+git remote update  # 更新远程分支信息
+git branch -r      # 查看远程分支
+# 输出：origin/main, origin/develop, origin/feature/new-ui
+
+# 2. 将远程的 feature/new-ui 分支拉到本地
+git checkout -b feature/new-ui origin/feature/new-ui
+
+# 3. 验证是否关联成功
+git branch -vv
+# 输出：feature/new-ui 123abcd [origin/feature/new-ui] 最新提交信息
 ~~~
 
