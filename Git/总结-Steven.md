@@ -358,7 +358,7 @@ Git 的逻辑： 只有被 commit 过的文件，才会被 Git 真正写入数�
 合并分支：git merge xxx
 删除分支：git branch -d xxx
 强制删除：git branch -D xxx
-推送分支：git push origin xxx
+推送分支：git push -u origin xxx
 拉取分支：git checkout -b <本地分支名> origin/<远程分支名>
 git remote update 是一个非常重要的 Git 命令，用于更新本地对远程仓库的引用    
 ~~~
